@@ -15,6 +15,7 @@
     "eslint-plugin-prettier": "^2.1.1",
     "eslint-plugin-react": "^5.2.2",
     "husky": "^0.13.3",
+    "lint-staged": "^3.5.0",
     "prettier": "^1.3.1",
     "react-scripts": "1.0.7",
     "version-everything": "^0.1.2"
@@ -24,8 +25,11 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "lint": "eslint src/",
+    "lint": "eslint src/ --fix",
     "prettier": "prettier --print-width 100 --single-quote --no-bracket-spacing --jsx-bracket-same-line --trailing-comma es5 --write \"src/**/*.js\"",
     "precommit": "npm run prettier && npm run lint"
+  },
+  "lint-staged": {
+    "src/**/*.js": ["npm run prettier", "npm run lint", "git add"]
   }
 }

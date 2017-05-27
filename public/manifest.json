@@ -1,0 +1,9 @@
+{
+  "manifest_version": 2,
+  "name": "game-agent",
+  "description": "PTT gamesale agent",
+  "version": "0.1.0",
+  "browser_action": {
+    "default_popup": "index.html"
+  }
+}

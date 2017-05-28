@@ -5,21 +5,21 @@ const {TabPane} = Tabs;
 
 const operations = <Button>新增任務</Button>;
 
-const questDtaSource = [
+const questDataSource = [
   {
     key: '1',
     name: '人中之龍6',
     type: 'buy',
     platform: 'PS4',
     aliases: ['人龍6'],
-    unreadPostCount: 8,
   },
   {
     key: '2',
-    name: '鐵拳7',
+    name: '地平線',
     type: 'buy',
     platform: 'PS4',
     aliases: ['鐵7'],
+    unreadPostCount: 8,
   },
   {
     key: '3',
@@ -30,13 +30,13 @@ const questDtaSource = [
   },
 ];
 
-const columns = [
+const questColumns = [
   {
     title: '遊戲',
     dataIndex: 'name',
     key: 'name',
     render: (text, {unreadPostCount}) => (
-      <Badge dot={unreadPostCount}>
+      <Badge dot={unreadPostCount > 0}>
         <span style={{paddingRight: 4}}>{text}</span>
       </Badge>
     ),
@@ -56,6 +56,106 @@ const columns = [
   },
 ];
 
+const postDataSource = [
+  {
+    key: '11',
+    name: '[PS4 ] 售 地平線-期待黎明 中文版',
+    link: 'https://www.ptt.cc/bbs/Gamesale/M.1495960713.A.5AA.html',
+    date: '5/28',
+    author: 'leepeter121',
+    read: false,
+  },
+  {
+    key: '12',
+    name: '[PS4 ] 售 地平線-期待黎明 中文版',
+    link: 'https://www.ptt.cc/bbs/Gamesale/M.1495960713.A.5AA.html',
+    date: '5/28',
+    author: 'leepeter121',
+    read: false,
+  },
+  {
+    key: '13',
+    name: '[PS4 ] 售 地平線-期待黎明 中文版',
+    link: 'https://www.ptt.cc/bbs/Gamesale/M.1495960713.A.5AA.html',
+    date: '5/28',
+    author: 'leepeter121',
+  },
+  {
+    key: '14',
+    name: '[PS4 ] 售 地平線-期待黎明 中文版',
+    link: 'https://www.ptt.cc/bbs/Gamesale/M.1495960713.A.5AA.html',
+    date: '5/28',
+    author: 'leepeter121',
+  },
+  {
+    key: '15',
+    name: '[PS4 ] 售 地平線-期待黎明 中文版',
+    link: 'https://www.ptt.cc/bbs/Gamesale/M.1495960713.A.5AA.html',
+    date: '5/28',
+    author: 'leepeter121',
+  },
+  {
+    key: '16',
+    name: '[PS4 ] 售 地平線-期待黎明 中文版',
+    link: 'https://www.ptt.cc/bbs/Gamesale/M.1495960713.A.5AA.html',
+    date: '5/28',
+    author: 'leepeter121',
+  },
+  {
+    key: '17',
+    name: '[PS4 ] 售 地平線-期待黎明 中文版',
+    link: 'https://www.ptt.cc/bbs/Gamesale/M.1495960713.A.5AA.html',
+    date: '5/28',
+    author: 'leepeter121',
+  },
+  {
+    key: '18',
+    name: '[PS4 ] 售 地平線-期待黎明 中文版',
+    link: 'https://www.ptt.cc/bbs/Gamesale/M.1495960713.A.5AA.html',
+    date: '5/28',
+    author: 'leepeter121',
+  },
+  {
+    key: '19',
+    name: '[PS4 ] 售 地平線-期待黎明 中文版',
+    link: 'https://www.ptt.cc/bbs/Gamesale/M.1495960713.A.5AA.html',
+    date: '5/28',
+    author: 'leepeter121',
+  },
+  {
+    key: '20',
+    name: '[PS4 ] 售 地平線-期待黎明 中文版',
+    link: 'https://www.ptt.cc/bbs/Gamesale/M.1495960713.A.5AA.html',
+    date: '5/28',
+    author: 'leepeter121',
+  },
+];
+
+const postColumns = [
+  {
+    title: '日期',
+    dataIndex: 'date',
+    key: 'date',
+  },
+  {
+    title: '作者',
+    dataIndex: 'author',
+    key: 'author',
+  },
+  {
+    title: '遊戲',
+    dataIndex: 'name',
+    key: 'name',
+    render: (text, {link, read}) => (
+      <Badge dot={read === false}>
+        <a href={link} target="_blank" rel="noopener noreferrer" style={{paddingRight: 4}}>
+          {text}
+        </a>
+      </Badge>
+    ),
+  },
+];
+
 class App extends Component {
   render() {
     return (
@@ -64,17 +164,28 @@ class App extends Component {
         <Tabs tabBarExtraContent={operations}>
           <TabPane tab="買遊戲" key="1">
             <Table
-              dataSource={questDtaSource.filter(row => row.type === 'buy')}
-              columns={columns}
+              className="components-table-demo-nested"
+              dataSource={questDataSource.filter(row => row.type === 'buy')}
+              columns={questColumns}
               pagination={false}
               size="middle"
-              expandedRowRender={() => <h1>11</h1>}
+              expandedRowRender={({name}) => {
+                return (
+                  <Table
+                    dataSource={postDataSource.filter(row => row.name.indexOf(name) !== -1)}
+                    columns={postColumns}
+                    showHeader={false}
+                    pagination={false}
+                    size="middle"
+                  />
+                );
+              }}
             />
           </TabPane>
           <TabPane tab="賣遊戲" key="2">
             <Table
-              dataSource={questDtaSource.filter(row => row.type === 'sell')}
-              columns={columns}
+              dataSource={questDataSource.filter(row => row.type === 'sell')}
+              columns={questColumns}
               pagination={false}
               size="middle"
             />

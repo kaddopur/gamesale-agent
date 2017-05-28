@@ -1,5 +1,5 @@
 import React from 'react';
-import {Table, Badge, Tag} from 'antd';
+import {Table, Badge} from 'antd';
 import PlatformTag from './PlatformTag';
 
 const questColumns = [

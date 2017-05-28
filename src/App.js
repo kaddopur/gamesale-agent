@@ -111,7 +111,6 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-
         <Tabs tabBarExtraContent={operations}>
           <TabPane tab="買遊戲" key="1">
             <QuestTable

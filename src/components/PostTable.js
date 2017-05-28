@@ -1,5 +1,6 @@
 import React from 'react';
 import {Table, Badge} from 'antd';
+import Link from './Link';
 
 const postColumns = [
   {
@@ -18,9 +19,9 @@ const postColumns = [
     key: 'name',
     render: (text, {link, read}) => (
       <Badge dot={read === false}>
-        <a href={link} target="_blank" rel="noopener noreferrer" style={{paddingRight: 4}}>
+        <Link url={link} style={{paddingRight: 4}}>
           {text}
-        </a>
+        </Link>
       </Badge>
     ),
   },

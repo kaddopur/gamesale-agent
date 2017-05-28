@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import {Provider} from 'react-redux';
 import {createStore} from 'redux';
 import {persistStore, autoRehydrate} from 'redux-persist';
+import localForage from 'localforage';
 import rootReducer from './reducers';
 import App from './App';
 import './index.css';
@@ -13,7 +14,7 @@ const store = createStore(
   autoRehydrate()
 );
 
-persistStore(store);
+persistStore(store, {storage: localForage});
 
 ReactDOM.render(
   <Provider store={store}>

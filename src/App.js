@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
-import {Table, Button, Tabs, Badge, Tag} from 'antd';
+import {Button, Tabs} from 'antd';
+import QuestTable from './components/QuestTable';
 import PostTable from './components/PostTable';
 import './App.css';
 const {TabPane} = Tabs;
@@ -28,32 +29,6 @@ const questDataSource = [
     type: 'sell',
     platform: 'PS4',
     aliases: ['鐵6'],
-  },
-];
-
-const questColumns = [
-  {
-    title: '遊戲',
-    dataIndex: 'name',
-    key: 'name',
-    render: (text, {unreadPostCount}) => (
-      <Badge dot={unreadPostCount > 0}>
-        <span style={{paddingRight: 4}}>{text}</span>
-      </Badge>
-    ),
-  },
-  {
-    title: '平台',
-    dataIndex: 'platform',
-    key: 'platform',
-    render: text => {
-      switch (text) {
-        case 'PS4':
-          return <Tag color="#108ee9">{text}</Tag>;
-        default:
-          return <Tag>{text}</Tag>;
-      }
-    },
   },
 ];
 
@@ -139,12 +114,8 @@ class App extends Component {
 
         <Tabs tabBarExtraContent={operations}>
           <TabPane tab="買遊戲" key="1">
-            <Table
-              className="components-table-demo-nested"
+            <QuestTable
               dataSource={questDataSource.filter(row => row.type === 'buy')}
-              columns={questColumns}
-              pagination={false}
-              size="middle"
               expandedRowRender={({name}) => (
                 <PostTable
                   dataSource={postDataSource.filter(row => row.name.indexOf(name) !== -1)}
@@ -153,11 +124,13 @@ class App extends Component {
             />
           </TabPane>
           <TabPane tab="賣遊戲" key="2">
-            <Table
+            <QuestTable
               dataSource={questDataSource.filter(row => row.type === 'sell')}
-              columns={questColumns}
-              pagination={false}
-              size="middle"
+              expandedRowRender={({name}) => (
+                <PostTable
+                  dataSource={postDataSource.filter(row => row.name.indexOf(name) !== -1)}
+                />
+              )}
             />
           </TabPane>
         </Tabs>

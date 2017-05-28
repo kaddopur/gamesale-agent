@@ -33,6 +33,9 @@ const PostTable = ({dataSource}) => (
     showHeader={false}
     pagination={false}
     size="middle"
+    locale={{
+      emptyText: '暫無數據',
+    }}
   />
 );
 

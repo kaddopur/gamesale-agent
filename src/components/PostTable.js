@@ -15,8 +15,8 @@ const postColumns = [
   },
   {
     title: '遊戲',
-    dataIndex: 'name',
-    key: 'name',
+    dataIndex: 'title',
+    key: 'title',
     render: (text, {link, read}) => (
       <Badge dot={read === false}>
         <Link url={link} style={{paddingRight: 4}}>

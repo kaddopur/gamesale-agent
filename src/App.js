@@ -18,7 +18,7 @@ class App extends Component {
             <QuestTable
               dataSource={quests.filter(row => row.type === 'buy')}
               expandedRowRender={({name}) => (
-                <PostTable dataSource={posts.filter(row => row.name.indexOf(name) !== -1)} />
+                <PostTable dataSource={posts.filter(row => row.title.indexOf(name) !== -1)} />
               )}
             />
           </TabPane>
@@ -26,7 +26,7 @@ class App extends Component {
             <QuestTable
               dataSource={quests.filter(row => row.type === 'sell')}
               expandedRowRender={({name}) => (
-                <PostTable dataSource={posts.filter(row => row.name.indexOf(name) !== -1)} />
+                <PostTable dataSource={posts.filter(row => row.title.indexOf(name) !== -1)} />
               )}
             />
           </TabPane>

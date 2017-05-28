@@ -3,9 +3,9 @@ import {combineReducers} from 'redux';
 const mockQuests = [
   {
     key: '1',
-    name: '人中之龍6',
+    name: '瑪利歐',
     type: 'buy',
-    platform: 'PS4',
+    platform: '3DS',
   },
   {
     key: '2',

@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {Tabs, Button, message} from 'antd';
+import {Tabs, message} from 'antd';
 import QuestTable from './components/QuestTable';
 import PostTable from './components/PostTable';
 import ActionButton from './components/ActionButton';

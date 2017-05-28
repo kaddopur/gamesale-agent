@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "antd": "^2.10.2",
     "react": "^15.5.4",
     "react-dom": "^15.5.4"
   },
@@ -30,6 +31,10 @@
     "precommit": "npm run prettier && npm run lint"
   },
   "lint-staged": {
-    "src/**/*.js": ["npm run prettier", "npm run lint", "git add"]
+    "src/**/*.js": [
+      "npm run prettier",
+      "npm run lint",
+      "git add"
+    ]
   }
 }

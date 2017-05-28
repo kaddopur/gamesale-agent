@@ -5,5 +5,6 @@
   "version": "0.1.0",
   "browser_action": {
     "default_popup": "index.html"
-  }
+  },
+  "content_security_policy": "default-src 'self'; font-src 'self' https://at.alicdn.com"
 }

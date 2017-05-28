@@ -3,14 +3,13 @@ import {combineReducers} from 'redux';
 const mockQuests = [
   {
     key: '1',
-    query: '瑪利歐',
-    type: 'buy',
-    platform: '3DS',
+    query: '快打旋風2',
+    type: 'sell',
+    platform: 'NS',
   },
   {
     key: '2',
-    // query: '實況野球2016',
-    query: 'PS4',
+    query: '地平線',
     type: 'buy',
     platform: 'PS4',
   },

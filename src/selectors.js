@@ -13,6 +13,14 @@ const sellQuestsSelector = createSelector(questsSelector, quests =>
   quests.filter(quest => quest.type === 'sell')
 );
 
+const toSellPostsSelector = createSelector(postsSelector, posts =>
+  posts.filter(post => post.title.indexOf('售') !== -1)
+);
+
+const toBuyPostsSelector = createSelector(postsSelector, posts =>
+  posts.filter(post => post.title.indexOf('徵') !== -1)
+);
+
 const formatQuest = posts => quest => {
   quest.posts = posts
     .filter(({platform, title}) => platform === quest.platform && title.indexOf(quest.query) !== -1)
@@ -22,7 +30,7 @@ const formatQuest = posts => quest => {
 
 export const displayBuyQuestsSelector = createSelector(
   buyQuestsSelector,
-  postsSelector,
+  toSellPostsSelector,
   (quests, posts) => {
     return quests.map(formatQuest(posts));
   }
@@ -30,7 +38,7 @@ export const displayBuyQuestsSelector = createSelector(
 
 export const displaySellQuestsSelector = createSelector(
   sellQuestsSelector,
-  postsSelector,
+  toBuyPostsSelector,
   (quests, posts) => {
     return quests.map(formatQuest(posts));
   }

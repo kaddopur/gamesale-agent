@@ -12,7 +12,7 @@ const questDataSource = [
     key: '1',
     name: '人中之龍6',
     type: 'buy',
-    platform: 'PS4',
+    platform: 'NS',
     aliases: ['人龍6'],
   },
   {
@@ -27,8 +27,32 @@ const questDataSource = [
     key: '3',
     name: '鐵拳6',
     type: 'sell',
-    platform: 'PS4',
+    platform: 'XONE',
     aliases: ['鐵6'],
+  },
+  {
+    key: '4',
+    name: '地平線',
+    type: 'buy',
+    platform: 'WiiU',
+    aliases: ['鐵7'],
+    unreadPostCount: 8,
+  },
+  {
+    key: '5',
+    name: '地平線',
+    type: 'buy',
+    platform: 'PSV',
+    aliases: ['鐵7'],
+    unreadPostCount: 8,
+  },
+  {
+    key: '6',
+    name: '地平線',
+    type: 'buy',
+    platform: '3DS',
+    aliases: ['鐵7'],
+    unreadPostCount: 8,
   },
 ];
 

@@ -1,5 +1,6 @@
 import React from 'react';
 import {Table, Badge, Tag} from 'antd';
+import PlatformTag from './PlatformTag';
 
 const questColumns = [
   {
@@ -16,14 +17,7 @@ const questColumns = [
     title: '平台',
     dataIndex: 'platform',
     key: 'platform',
-    render: text => {
-      switch (text) {
-        case 'PS4':
-          return <Tag color="#108ee9">{text}</Tag>;
-        default:
-          return <Tag>{text}</Tag>;
-      }
-    },
+    render: platform => <PlatformTag platform={platform} />,
   },
 ];
 

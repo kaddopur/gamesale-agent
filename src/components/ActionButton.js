@@ -10,17 +10,32 @@ class ActionButton extends React.Component {
     super(props);
     this.state = {
       visible: false,
-      quest: {
-        key: uuid(),
-        query: '',
-        type: props.type,
-        platform: '',
-        readPosts: [],
-      },
+      quest: this.generateQuest(props.type),
     };
   }
+
+  componentWillReceiveProps({type}) {
+    if (type !== this.props.type) {
+      this.setState({
+        quest: Object.assign({}, this.state.quest, {
+          type,
+        }),
+      });
+    }
+  }
+
+  generateQuest(type) {
+    return {
+      key: uuid(),
+      query: '',
+      type,
+      platform: '',
+      readPosts: [],
+    };
+  }
+
   render() {
-    const {type} = this.props;
+    const {type, onQuestCreate} = this.props;
     const {visible, quest} = this.state;
     const {platform, query} = quest;
     const wording = `我要${type === 'buy' ? '買' : '賣'}遊戲`;
@@ -37,8 +52,11 @@ class ActionButton extends React.Component {
           title="新增任務"
           visible={visible}
           wrapClassName="vertical-center-modal"
-          onOk={() => this.setState({visible: false})}
-          onCancel={() => this.setState({visible: false})}
+          onOk={() => {
+            onQuestCreate(this.state.quest);
+            this.setState({visible: false, quest: this.generateQuest(type)});
+          }}
+          onCancel={() => this.setState({visible: false, quest: this.generateQuest(type)})}
           okText="新增"
           cancelText="取消">
           <InputGroup compact>

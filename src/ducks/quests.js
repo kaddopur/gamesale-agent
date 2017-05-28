@@ -1,6 +1,7 @@
 // Actions
 const READ = 'gamesale-agent/quests/READ';
 const DELETE = 'gamesale-agent/quests/DELETE';
+const CREATE = 'gamesale-agent/quests/CREATE';
 
 // Reducer
 const mockQuests = [
@@ -35,6 +36,8 @@ export default function reducer(state = mockQuests, action = {}) {
     case DELETE:
       questIndex = state.findIndex(quest => quest.key === action.payload.questKey);
       return [...state.slice(0, questIndex), ...state.slice(questIndex + 1)];
+    case CREATE:
+      return [...state, action.payload.quest];
     default:
       return state;
   }
@@ -56,6 +59,15 @@ export function deleteQuest(questKey) {
     type: DELETE,
     payload: {
       questKey,
+    },
+  };
+}
+
+export function createQuest(quest) {
+  return {
+    type: CREATE,
+    payload: {
+      quest,
     },
   };
 }

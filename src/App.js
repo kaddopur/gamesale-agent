@@ -5,7 +5,7 @@ import QuestTable from './components/QuestTable';
 import PostTable from './components/PostTable';
 import ActionButton from './components/ActionButton';
 import {displayBuyQuestsSelector, displaySellQuestsSelector, uiSelector} from './selectors';
-import {readQuest, deleteQuest} from './ducks/quests';
+import {readQuest, deleteQuest, createQuest} from './ducks/quests';
 import {changeTab, toggleRow} from './ducks/ui';
 import './App.css';
 
@@ -21,6 +21,7 @@ class App extends Component {
       onTabClick,
       onExpand,
       onQuestDelete,
+      onQuestCreate,
     } = this.props;
 
     return (
@@ -29,7 +30,7 @@ class App extends Component {
           activeKey={ui.activeTabKey}
           onTabClick={onTabClick}
           animated={false}
-          tabBarExtraContent={<ActionButton type={ui.activeTabKey} />}
+          tabBarExtraContent={<ActionButton type={ui.activeTabKey} onQuestCreate={onQuestCreate} />}
           tabBarStyle={{
             marginBottom: 0,
           }}>
@@ -83,6 +84,10 @@ const mapDispatchToProps = dispatch => {
     onQuestDelete: key => {
       dispatch(deleteQuest(key));
       message.success('已成功刪除任務');
+    },
+    onQuestCreate: quest => {
+      dispatch(createQuest(quest));
+      message.success('已成功新增任務');
     },
   };
 };

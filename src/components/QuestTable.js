@@ -4,12 +4,14 @@ import PlatformTag from './PlatformTag';
 
 const {Column} = Table;
 
-const QuestTable = ({dataSource, expandedRowRender}) => (
+const QuestTable = ({dataSource, expandedRowKeys, onExpand, expandedRowRender}) => (
   <Table
     className="components-table-demo-nested"
     dataSource={dataSource}
     pagination={false}
     size="middle"
+    expandedRowKeys={expandedRowKeys}
+    onExpand={onExpand}
     expandedRowRender={expandedRowRender}
     locale={{
       emptyText: '暫無數據',

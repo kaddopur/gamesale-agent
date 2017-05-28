@@ -5,14 +5,14 @@ import QuestTable from './components/QuestTable';
 import PostTable from './components/PostTable';
 import {displayBuyQuestsSelector, displaySellQuestsSelector, uiSelector} from './selectors';
 import {readPost} from './ducks/quests';
-import {changeTab} from './ducks/ui';
+import {changeTab, toggleQuest} from './ducks/ui';
 import './App.css';
 
 const {TabPane} = Tabs;
 
 class App extends Component {
   render() {
-    const {buyQuests, sellQuests, ui, onPostClick, onTabClick} = this.props;
+    const {buyQuests, sellQuests, ui, onPostClick, onTabClick, onExpand} = this.props;
 
     return (
       <div className="App">
@@ -20,6 +20,8 @@ class App extends Component {
           <TabPane tab="買遊戲" key="buy">
             <QuestTable
               dataSource={buyQuests}
+              expandedRowKeys={ui.expandedRows}
+              onExpand={onExpand}
               expandedRowRender={({key, posts}) => (
                 <PostTable dataSource={posts} postKey={key} onPostClick={onPostClick} />
               )}
@@ -28,6 +30,8 @@ class App extends Component {
           <TabPane tab="賣遊戲" key="sell">
             <QuestTable
               dataSource={sellQuests}
+              expandedRowKeys={ui.expandedRows}
+              onExpand={onExpand}
               expandedRowRender={({key, posts}) => (
                 <PostTable dataSource={posts} postKey={key} onPostClick={onPostClick} />
               )}
@@ -54,6 +58,9 @@ const mapDispatchToProps = dispatch => {
     },
     onTabClick: activeKey => {
       dispatch(changeTab(activeKey));
+    },
+    onExpand: (expanded, {key}) => {
+      dispatch(toggleQuest(expanded, key));
     },
   };
 };

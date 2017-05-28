@@ -4,6 +4,7 @@ import {Tabs} from 'antd';
 import QuestTable from './components/QuestTable';
 import PostTable from './components/PostTable';
 import {displayBuyQuestsSelector, displaySellQuestsSelector} from './selectors';
+import {readPost} from './ducks/quests';
 import './App.css';
 
 const {TabPane} = Tabs;
@@ -36,14 +37,6 @@ class App extends Component {
     );
   }
 }
-
-const readPost = (questKey, postKey) => ({
-  type: 'READ_POST',
-  payload: {
-    questKey,
-    postKey,
-  },
-});
 
 const mapStateToProps = state => {
   return {

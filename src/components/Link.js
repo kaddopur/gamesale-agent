@@ -9,15 +9,19 @@ class Link extends Component {
   }
 
   handleClick(e) {
+    const {url, handleClick} = this.props;
+
     if (chrome && chrome.tabs) {
       e.preventDefault();
       e.stopPropagation();
 
       chrome.tabs.create({
-        url: this.props.url,
+        url,
         active: !e.getModifierState('Meta'),
       });
     }
+
+    handleClick();
   }
 
   render() {

@@ -13,7 +13,7 @@ const mockQuests = [
     query: '地平線',
     type: 'buy',
     platform: 'PS4',
-    readPosts: ['https://www.ptt.cc/bbs/Gamesale/M.1495976711.A.6AA.html'],
+    readPosts: [],
   },
 ];
 
@@ -184,6 +184,15 @@ const mockPosts = [
 
 const quests = (state = mockQuests, action) => {
   switch (action.type) {
+    case 'READ_POST':
+      const index = state.findIndex(quest => quest.key === action.payload.questKey);
+      return [
+        ...state.slice(0, index),
+        Object.assign({}, state[index], {
+          readPosts: [...state[index].readPosts, action.payload.postKey],
+        }),
+        ...state.slice(index + 1),
+      ];
     default:
       return state;
   }

@@ -10,7 +10,7 @@ const {TabPane} = Tabs;
 
 class App extends Component {
   render() {
-    const {buyQuests, sellQuests} = this.props;
+    const {buyQuests, sellQuests, onPostClick} = this.props;
 
     return (
       <div className="App">
@@ -18,13 +18,17 @@ class App extends Component {
           <TabPane tab="買遊戲" key="1">
             <QuestTable
               dataSource={buyQuests}
-              expandedRowRender={({posts}) => <PostTable dataSource={posts} />}
+              expandedRowRender={({key, posts}) => (
+                <PostTable dataSource={posts} postKey={key} onPostClick={onPostClick} />
+              )}
             />
           </TabPane>
           <TabPane tab="賣遊戲" key="2">
             <QuestTable
               dataSource={sellQuests}
-              expandedRowRender={({posts}) => <PostTable dataSource={posts} />}
+              expandedRowRender={({key, posts}) => (
+                <PostTable dataSource={posts} postKey={key} onPostClick={onPostClick} />
+              )}
             />
           </TabPane>
         </Tabs>
@@ -33,6 +37,14 @@ class App extends Component {
   }
 }
 
+const readPost = (questKey, postKey) => ({
+  type: 'READ_POST',
+  payload: {
+    questKey,
+    postKey,
+  },
+});
+
 const mapStateToProps = state => {
   return {
     buyQuests: displayBuyQuestsSelector(state),
@@ -40,4 +52,12 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps)(App);
+const mapDispatchToProps = dispatch => {
+  return {
+    onPostClick: (questKey, postKey) => {
+      dispatch(readPost(questKey, postKey));
+    },
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

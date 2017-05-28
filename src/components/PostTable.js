@@ -4,7 +4,7 @@ import Link from './Link';
 
 const {Column} = Table;
 
-const PostTable = ({dataSource}) => (
+const PostTable = ({postKey, onPostClick, dataSource}) => (
   <Table
     dataSource={dataSource}
     showHeader={false}
@@ -21,7 +21,10 @@ const PostTable = ({dataSource}) => (
       key="title"
       render={(text, {link, read}) => (
         <Badge dot={!read}>
-          <Link url={link} style={{paddingRight: 4}}>
+          <Link
+            url={link}
+            style={{paddingRight: 4}}
+            handleClick={onPostClick.bind(null, postKey, link)}>
             {text}
           </Link>
         </Badge>

@@ -22,10 +22,20 @@ const toBuyPostsSelector = createSelector(postsSelector, posts =>
 );
 
 const formatQuest = posts => quest => {
-  quest.posts = posts
+  const newPosts = posts
     .filter(({platform, title}) => platform === quest.platform && title.indexOf(quest.query) !== -1)
-    .slice(0, POST_AMOUT_PER_QUEST);
-  return quest;
+    .slice(0, POST_AMOUT_PER_QUEST)
+    .map(post =>
+      Object.assign({}, post, {
+        read: quest.readPosts.indexOf(post.link) !== -1,
+      })
+    );
+  const read = newPosts.reduce((acc, post) => acc && post.read, true);
+
+  return Object.assign({}, quest, {
+    posts: newPosts,
+    read,
+  });
 };
 
 export const displayBuyQuestsSelector = createSelector(

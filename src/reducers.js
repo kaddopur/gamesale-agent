@@ -6,12 +6,14 @@ const mockQuests = [
     query: '快打旋風2',
     type: 'sell',
     platform: 'NS',
+    readPosts: [],
   },
   {
     key: '2',
     query: '地平線',
     type: 'buy',
     platform: 'PS4',
+    readPosts: ['https://www.ptt.cc/bbs/Gamesale/M.1495976711.A.6AA.html'],
   },
 ];
 

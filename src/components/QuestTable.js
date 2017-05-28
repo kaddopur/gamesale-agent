@@ -18,8 +18,8 @@ const QuestTable = ({dataSource, expandedRowRender}) => (
       title="目標字串"
       dataIndex="query"
       key="query"
-      render={(text, {unreadPostCount}) => (
-        <Badge dot={unreadPostCount > 0}>
+      render={(text, {read}) => (
+        <Badge dot={!read}>
           <span style={{paddingRight: 4}}>{text}</span>
         </Badge>
       )}

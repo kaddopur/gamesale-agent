@@ -20,7 +20,7 @@ const PostTable = ({dataSource}) => (
       dataIndex="title"
       key="title"
       render={(text, {link, read}) => (
-        <Badge dot={read === false}>
+        <Badge dot={!read}>
           <Link url={link} style={{paddingRight: 4}}>
             {text}
           </Link>

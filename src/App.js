@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {Tabs, message} from 'antd';
+import {Tabs, Button, message} from 'antd';
 import QuestTable from './components/QuestTable';
 import PostTable from './components/PostTable';
+import ActionButton from './components/ActionButton';
 import {displayBuyQuestsSelector, displaySellQuestsSelector, uiSelector} from './selectors';
 import {readQuest, deleteQuest} from './ducks/quests';
 import {changeTab, toggleRow} from './ducks/ui';
@@ -28,6 +29,7 @@ class App extends Component {
           activeKey={ui.activeTabKey}
           onTabClick={onTabClick}
           animated={false}
+          tabBarExtraContent={<ActionButton type={ui.activeTabKey} />}
           tabBarStyle={{
             marginBottom: 0,
           }}>

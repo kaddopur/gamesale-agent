@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import {Tabs} from 'antd';
 import QuestTable from './components/QuestTable';
 import PostTable from './components/PostTable';
-import {buyQuestsSelector, sellQuestsSelector} from './selectors';
+import {displayBuyQuestsSelector, displaySellQuestsSelector} from './selectors';
 import './App.css';
 
 const {TabPane} = Tabs;
@@ -35,8 +35,8 @@ class App extends Component {
 
 const mapStateToProps = state => {
   return {
-    buyQuests: buyQuestsSelector(state),
-    sellQuests: sellQuestsSelector(state),
+    buyQuests: displayBuyQuestsSelector(state),
+    sellQuests: displaySellQuestsSelector(state),
   };
 };
 

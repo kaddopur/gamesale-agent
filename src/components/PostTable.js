@@ -13,8 +13,8 @@ const PostTable = ({dataSource}) => (
     locale={{
       emptyText: '暫無數據',
     }}>
-    <Column title="日期" dataIndex="date" key="date" width="40" />
-    <Column title="作者" dataIndex="author" key="author" width="100" />
+    <Column title="日期" dataIndex="date" key="date" width="40px" />
+    <Column title="作者" dataIndex="author" key="author" width="100px" />
     <Column
       title="遊戲"
       dataIndex="title"

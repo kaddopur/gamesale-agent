@@ -1,21 +1,37 @@
 import {createSelector} from 'reselect';
 
-const questsSelector = state => state.quests;
-const postsSelector = state => state.posts;
+const POST_AMOUT_PER_QUEST = 5;
+
+const questsSelector = ({quests = []}) => quests;
+const postsSelector = ({posts = []}) => posts;
+
+const buyQuestsSelector = createSelector(questsSelector, quests =>
+  quests.filter(quest => quest.type === 'buy')
+);
+
+const sellQuestsSelector = createSelector(questsSelector, quests =>
+  quests.filter(quest => quest.type === 'sell')
+);
 
 const formatQuest = posts => quest => {
   quest.posts = posts
-    .filter(post => post.platform === quest.platform)
-    .filter(post => post.title.indexOf(quest.name) !== -1);
+    .filter(({platform, title}) => platform === quest.platform && title.indexOf(quest.query) !== -1)
+    .slice(0, POST_AMOUT_PER_QUEST);
   return quest;
 };
 
-export const buyQuestsSelector = createSelector(questsSelector, postsSelector, (quests, posts) => {
-  const formatter = formatQuest(posts);
-  return quests.filter(quest => quest.type === 'buy').map(formatter);
-});
+export const displayBuyQuestsSelector = createSelector(
+  buyQuestsSelector,
+  postsSelector,
+  (quests, posts) => {
+    return quests.map(formatQuest(posts));
+  }
+);
 
-export const sellQuestsSelector = createSelector(questsSelector, postsSelector, (quests, posts) => {
-  const formatter = formatQuest(posts);
-  return quests.filter(quest => quest.type === 'sell').map(formatter);
-});
+export const displaySellQuestsSelector = createSelector(
+  sellQuestsSelector,
+  postsSelector,
+  (quests, posts) => {
+    return quests.map(formatQuest(posts));
+  }
+);

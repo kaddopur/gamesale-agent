@@ -2,8 +2,9 @@ import {createSelector} from 'reselect';
 
 const POST_AMOUT_PER_QUEST = 5;
 
-const questsSelector = ({quests = []}) => quests;
-const postsSelector = ({posts = []}) => posts;
+const questsSelector = state => state.quests;
+const postsSelector = state => state.posts;
+export const uiSelector = state => state.ui;
 
 const buyQuestsSelector = createSelector(questsSelector, quests =>
   quests.filter(quest => quest.type === 'buy')

@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {Table, Button, Tabs, Badge, Tag} from 'antd';
+import PostTable from './components/PostTable';
 import './App.css';
 const {TabPane} = Tabs;
 
@@ -131,31 +132,6 @@ const postDataSource = [
   },
 ];
 
-const postColumns = [
-  {
-    title: '日期',
-    dataIndex: 'date',
-    key: 'date',
-  },
-  {
-    title: '作者',
-    dataIndex: 'author',
-    key: 'author',
-  },
-  {
-    title: '遊戲',
-    dataIndex: 'name',
-    key: 'name',
-    render: (text, {link, read}) => (
-      <Badge dot={read === false}>
-        <a href={link} target="_blank" rel="noopener noreferrer" style={{paddingRight: 4}}>
-          {text}
-        </a>
-      </Badge>
-    ),
-  },
-];
-
 class App extends Component {
   render() {
     return (
@@ -169,17 +145,11 @@ class App extends Component {
               columns={questColumns}
               pagination={false}
               size="middle"
-              expandedRowRender={({name}) => {
-                return (
-                  <Table
-                    dataSource={postDataSource.filter(row => row.name.indexOf(name) !== -1)}
-                    columns={postColumns}
-                    showHeader={false}
-                    pagination={false}
-                    size="middle"
-                  />
-                );
-              }}
+              expandedRowRender={({name}) => (
+                <PostTable
+                  dataSource={postDataSource.filter(row => row.name.indexOf(name) !== -1)}
+                />
+              )}
             />
           </TabPane>
           <TabPane tab="賣遊戲" key="2">

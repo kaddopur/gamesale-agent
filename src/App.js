@@ -1,18 +1,26 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {Tabs} from 'antd';
+import {Tabs, message} from 'antd';
 import QuestTable from './components/QuestTable';
 import PostTable from './components/PostTable';
 import {displayBuyQuestsSelector, displaySellQuestsSelector, uiSelector} from './selectors';
-import {readPost} from './ducks/quests';
-import {changeTab, toggleQuest} from './ducks/ui';
+import {readQuest, deleteQuest} from './ducks/quests';
+import {changeTab, toggleRow} from './ducks/ui';
 import './App.css';
 
 const {TabPane} = Tabs;
 
 class App extends Component {
   render() {
-    const {buyQuests, sellQuests, ui, onPostClick, onTabClick, onExpand} = this.props;
+    const {
+      buyQuests,
+      sellQuests,
+      ui,
+      onPostClick,
+      onTabClick,
+      onExpand,
+      onQuestDelete,
+    } = this.props;
 
     return (
       <div className="App">
@@ -28,6 +36,7 @@ class App extends Component {
               dataSource={buyQuests}
               expandedRowKeys={ui.expandedRows}
               onExpand={onExpand}
+              onQuestDelete={onQuestDelete}
               expandedRowRender={({key, posts}) => (
                 <PostTable dataSource={posts} postKey={key} onPostClick={onPostClick} />
               )}
@@ -38,6 +47,7 @@ class App extends Component {
               dataSource={sellQuests}
               expandedRowKeys={ui.expandedRows}
               onExpand={onExpand}
+              onQuestDelete={onQuestDelete}
               expandedRowRender={({key, posts}) => (
                 <PostTable dataSource={posts} postKey={key} onPostClick={onPostClick} />
               )}
@@ -60,13 +70,17 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     onPostClick: (questKey, postKey) => {
-      dispatch(readPost(questKey, postKey));
+      dispatch(readQuest(questKey, postKey));
     },
     onTabClick: activeKey => {
       dispatch(changeTab(activeKey));
     },
     onExpand: (expanded, {key}) => {
-      dispatch(toggleQuest(expanded, key));
+      dispatch(toggleRow(expanded, key));
+    },
+    onQuestDelete: key => {
+      dispatch(deleteQuest(key));
+      message.success('已成功刪除任務');
     },
   };
 };

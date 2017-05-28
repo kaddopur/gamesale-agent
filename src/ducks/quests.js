@@ -1,5 +1,6 @@
 // Actions
 const READ = 'gamesale-agent/quests/READ';
+const DELETE = 'gamesale-agent/quests/DELETE';
 
 // Reducer
 const mockQuests = [
@@ -20,28 +21,41 @@ const mockQuests = [
 ];
 
 export default function reducer(state = mockQuests, action = {}) {
+  let questIndex;
   switch (action.type) {
     case READ:
-      const index = state.findIndex(quest => quest.key === action.payload.questKey);
+      questIndex = state.findIndex(quest => quest.key === action.payload.questKey);
       return [
-        ...state.slice(0, index),
-        Object.assign({}, state[index], {
-          readPosts: [...state[index].readPosts, action.payload.postKey],
+        ...state.slice(0, questIndex),
+        Object.assign({}, state[questIndex], {
+          readPosts: [...state[questIndex].readPosts, action.payload.postKey],
         }),
-        ...state.slice(index + 1),
+        ...state.slice(questIndex + 1),
       ];
+    case DELETE:
+      questIndex = state.findIndex(quest => quest.key === action.payload.questKey);
+      return [...state.slice(0, questIndex), ...state.slice(questIndex + 1)];
     default:
       return state;
   }
 }
 
 // Action Creators
-export function readPost(questKey, postKey) {
+export function readQuest(questKey, postKey) {
   return {
     type: READ,
     payload: {
       questKey,
       postKey,
+    },
+  };
+}
+
+export function deleteQuest(questKey) {
+  return {
+    type: DELETE,
+    payload: {
+      questKey,
     },
   };
 }

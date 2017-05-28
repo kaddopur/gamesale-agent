@@ -1,6 +1,6 @@
 // Actions
 const CHANGE_TAB = 'gamesale-agent/ui/CHANGE_TAB';
-const TOGGLE_QUEST = 'gamesale-agent/ui/TOGGLE_QUEST';
+const TOGGLE_ROW = 'gamesale-agent/ui/TOGGLE_ROW';
 
 // Reducer
 const defaultState = {
@@ -14,7 +14,7 @@ export default function reducer(state = defaultState, action = {}) {
       return Object.assign({}, state, {
         activeTabKey: action.payload.activeKey,
       });
-    case TOGGLE_QUEST:
+    case TOGGLE_ROW:
       if (action.payload.expanded) {
         return Object.assign({}, state, {
           expandedRows: [...state.expandedRows, action.payload.questKey],
@@ -42,9 +42,9 @@ export function changeTab(activeKey) {
   };
 }
 
-export function toggleQuest(expanded, questKey) {
+export function toggleRow(expanded, questKey) {
   return {
-    type: TOGGLE_QUEST,
+    type: TOGGLE_ROW,
     payload: {
       expanded,
       questKey,

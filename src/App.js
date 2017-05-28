@@ -19,6 +19,7 @@ class App extends Component {
         <Tabs
           activeKey={ui.activeTabKey}
           onTabClick={onTabClick}
+          animated={false}
           tabBarStyle={{
             marginBottom: 0,
           }}>

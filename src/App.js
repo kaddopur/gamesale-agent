@@ -16,7 +16,12 @@ class App extends Component {
 
     return (
       <div className="App">
-        <Tabs activeKey={ui.activeTabKey} onTabClick={onTabClick}>
+        <Tabs
+          activeKey={ui.activeTabKey}
+          onTabClick={onTabClick}
+          tabBarStyle={{
+            marginBottom: 0,
+          }}>
           <TabPane tab="買遊戲" key="buy">
             <QuestTable
               dataSource={buyQuests}

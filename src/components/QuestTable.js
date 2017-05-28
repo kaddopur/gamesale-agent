@@ -22,7 +22,7 @@ const QuestTable = ({dataSource, expandedRowKeys, onExpand, expandedRowRender, o
       dataIndex="platform"
       key="platform"
       width="80px"
-      render={platform => <PlatformTag platform={platform} />}
+      render={platform => <PlatformTag platform={platform || '不拘'} />}
     />
     <Column
       title="目標字串"
@@ -30,7 +30,7 @@ const QuestTable = ({dataSource, expandedRowKeys, onExpand, expandedRowRender, o
       key="query"
       render={(text, {read}) => (
         <Badge dot={!read}>
-          <span style={{paddingRight: 4}}>{text}</span>
+          <span style={{paddingRight: 4}}>{text || '( 空字串 )'}</span>
         </Badge>
       )}
     />

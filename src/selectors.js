@@ -24,7 +24,8 @@ const toBuyPostsSelector = createSelector(postsSelector, posts =>
 
 const formatQuest = posts => quest => {
   const newPosts = posts
-    .filter(({platform, title}) => platform === quest.platform && title.indexOf(quest.query) !== -1)
+    .filter(({platform}) => !quest.platform || platform === quest.platform)
+    .filter(({title}) => title.indexOf(quest.query) !== -1)
     .slice(0, POST_AMOUT_PER_QUEST)
     .map(post =>
       Object.assign({}, post, {

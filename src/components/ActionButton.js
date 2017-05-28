@@ -81,6 +81,7 @@ class ActionButton extends React.Component {
               <Option value="PSV">PSV</Option>
               <Option value="3DS">3DS</Option>
               <Option value="PC">PC</Option>
+              <Option value="">不拘</Option>
             </Select>
             <Input
               style={{width: '50%'}}

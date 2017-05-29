@@ -6,8 +6,6 @@ import {pttParser} from '../lib/parser';
 import _uniqBy from 'lodash/uniqBy';
 import _orderBy from 'lodash/orderBy';
 
-const FETCH_INTERVEL_MS = 10000;
-
 // Actions
 const FETCH = 'gamesale-agent/posts/FETCH';
 export const FETCH_SUCCESS = 'gamesale-agent/posts/FETCH_SUCCESS';
@@ -42,8 +40,8 @@ export const fetchSuccess = ({posts, previousPage}) => ({
 });
 
 // Epics
-export const fetchPostEpic = action$ =>
-  action$.ofType(FETCH).debounceTime(FETCH_INTERVEL_MS).mergeMap(action =>
+export const fetchPostEpic = (action$, store) =>
+  action$.ofType(FETCH).debounceTime(store.getState().config.FETCH_INTERVEL_MS).mergeMap(action =>
     ajax({
       url: action.payload.postUrl,
       responseType: 'text',

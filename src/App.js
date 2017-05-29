@@ -5,10 +5,11 @@ import QuestTable from './components/QuestTable';
 import PostTable from './components/PostTable';
 import ActionButton from './components/ActionButton';
 import {
+  configSelector,
   displayBuyQuestsSelector,
   displaySellQuestsSelector,
-  uiSelector,
   postLengthSelector,
+  uiSelector,
 } from './selectors';
 import {readQuest, deleteQuest, createQuest} from './modules/quests';
 import {fetchPost} from './modules/posts';
@@ -16,11 +17,10 @@ import {changeTab, toggleRow} from './modules/ui';
 import './App.css';
 
 const {TabPane} = Tabs;
-const MAX_POSTS = 200;
 
 class App extends Component {
-  componentWillReceiveProps({ui, postLength, fetchPost}) {
-    if (postLength < MAX_POSTS) {
+  componentWillReceiveProps({config, ui, postLength, fetchPost}) {
+    if (postLength < config.MAX_POSTS) {
       fetchPost(ui.previousPage);
     }
   }
@@ -78,9 +78,10 @@ class App extends Component {
 const mapStateToProps = state => {
   return {
     buyQuests: displayBuyQuestsSelector(state),
+    config: configSelector(state),
+    postLength: postLengthSelector(state),
     sellQuests: displaySellQuestsSelector(state),
     ui: uiSelector(state),
-    postLength: postLengthSelector(state),
   };
 };
 
@@ -101,6 +102,7 @@ const mapDispatchToProps = dispatch => {
     },
     onQuestCreate: quest => {
       dispatch(createQuest(quest));
+      dispatch(toggleRow(true, quest.key));
       message.success('已成功新增任務');
     },
     fetchPost: postUrl => {

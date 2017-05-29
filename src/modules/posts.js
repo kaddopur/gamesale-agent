@@ -3,7 +3,7 @@ import 'rxjs/add/operator/mergeMap';
 import 'rxjs/add/operator/map';
 import {pttParser} from '../lib/parser';
 import _uniqBy from 'lodash/uniqBy';
-import _sortBy from 'lodash/sortBy';
+import _orderBy from 'lodash/orderBy';
 
 // Actions
 const FETCH = 'gamesale-agent/posts/FETCH';
@@ -14,9 +14,8 @@ export default function reducer(state = [], action = {}) {
   let newState;
   switch (action.type) {
     case FETCH_SUCCESS:
-      newState = _uniqBy([...action.payload.posts, ...state], 'key');
-      _sortBy(newState, 'key');
-      return newState;
+      newState = _orderBy(_uniqBy([...action.payload.posts, ...state], 'key'));
+      return _orderBy(newState, ['key'], ['desc']);
     default:
       return state;
   }
@@ -31,10 +30,11 @@ export const fetchPost = (postUrl = DEFAULT_POST_URL) => ({
   },
 });
 
-export const fetchSuccess = posts => ({
+export const fetchSuccess = ({posts, previousPage}) => ({
   type: FETCH_SUCCESS,
   payload: {
     posts,
+    previousPage,
   },
 });
 

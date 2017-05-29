@@ -2,6 +2,7 @@ export const pttParser = html => {
   const cheerio = require('cheerio');
   const $ = cheerio.load(html);
   const PTT_HOST = 'https://www.ptt.cc';
+  const previousPage = PTT_HOST + $('.btn-group-paging .btn').eq(1).attr('href');
 
   const posts = $('.r-ent')
     .map(function(i) {
@@ -20,5 +21,8 @@ export const pttParser = html => {
     })
     .get();
 
-  return posts;
+  return {
+    posts,
+    previousPage,
+  };
 };

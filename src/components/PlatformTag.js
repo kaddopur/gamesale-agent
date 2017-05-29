@@ -15,6 +15,8 @@ const PlatformTag = ({platform}) => {
       return <Tag color="#4A8C9F">{platform}</Tag>;
     case '3DS':
       return <Tag color="#9F504D">{platform}</Tag>;
+    case 'PC':
+      return <Tag color="#77428D">{platform}</Tag>;
     default:
       return <Tag>{platform}</Tag>;
   }

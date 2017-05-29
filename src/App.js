@@ -6,12 +6,17 @@ import PostTable from './components/PostTable';
 import ActionButton from './components/ActionButton';
 import {displayBuyQuestsSelector, displaySellQuestsSelector, uiSelector} from './selectors';
 import {readQuest, deleteQuest, createQuest} from './modules/quests';
+import {fetchPost} from './modules/posts';
 import {changeTab, toggleRow} from './modules/ui';
 import './App.css';
 
 const {TabPane} = Tabs;
 
 class App extends Component {
+  componentDidMount() {
+    this.props.fetchPost();
+  }
+
   render() {
     const {
       buyQuests,
@@ -89,6 +94,9 @@ const mapDispatchToProps = dispatch => {
       dispatch(createQuest(quest));
       message.success('已成功新增任務');
     },
+    fetchPost: postUrl => {
+      dispatch(fetchPost(postUrl));
+    }
   };
 };
 

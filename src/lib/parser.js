@@ -1,20 +1,13 @@
-const fs = require('fs');
-const path = require('path');
-
-fs.readFile(path.join(__dirname, 'gamesale.index.html'), 'utf8', function(err, data) {
-  // console.log(data);
+export const pttParser = (html) => {
   const cheerio = require('cheerio');
-  const $ = cheerio.load(data);
-
-  // const posts = $('.r-ent').map(i => {
-  //   return $(this).find('.title').eq(0).html();
-  // });
+  const $ = cheerio.load(html);
+  const PTT_HOST = 'https://www.ptt.cc';
 
   const posts = $('.r-ent')
     .map(function(i) {
       const anchor = $(this).find('.title a');
       const title = anchor.text().trim();
-      const link = anchor.attr('href');
+      const link = PTT_HOST + anchor.attr('href');
 
       return {
         author: $(this).find('.author').text().trim(),
@@ -27,5 +20,5 @@ fs.readFile(path.join(__dirname, 'gamesale.index.html'), 'utf8', function(err, d
     })
     .get();
 
-  console.log(posts);
-});
+  return posts;
+}

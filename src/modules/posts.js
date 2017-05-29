@@ -1,8 +1,8 @@
-import {ajax} from 'rxjs/observable/dom/ajax';
+import { ajax } from 'rxjs/observable/dom/ajax';
 import 'rxjs/add/operator/mergeMap';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/debounceTime';
-import {pttParser} from '../lib/parser';
+import { pttParser } from '../lib/parser';
 import _uniqBy from 'lodash/uniqBy';
 import _orderBy from 'lodash/orderBy';
 
@@ -31,7 +31,7 @@ export const fetchPost = (postUrl = DEFAULT_POST_URL) => ({
   },
 });
 
-export const fetchSuccess = ({posts, previousPage}) => ({
+export const fetchSuccess = ({ posts, previousPage }) => ({
   type: FETCH_SUCCESS,
   payload: {
     posts,
@@ -41,9 +41,12 @@ export const fetchSuccess = ({posts, previousPage}) => ({
 
 // Epics
 export const fetchPostEpic = (action$, store) =>
-  action$.ofType(FETCH).debounceTime(store.getState().config.FETCH_INTERVEL_MS).mergeMap(action =>
-    ajax({
-      url: action.payload.postUrl,
-      responseType: 'text',
-    }).map(xhr => fetchSuccess(pttParser(xhr.response)))
-  );
+  action$
+    .ofType(FETCH)
+    .debounceTime(store.getState().config.FETCH_INTERVEL_MS)
+    .mergeMap(action =>
+      ajax({
+        url: action.payload.postUrl,
+        responseType: 'text',
+      }).map(xhr => fetchSuccess(pttParser(xhr.response))),
+    );

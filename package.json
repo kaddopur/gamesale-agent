@@ -1,6 +1,6 @@
 {
   "name": "game-agent",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "private": true,
   "dependencies": {
     "antd": "^2.10.2",

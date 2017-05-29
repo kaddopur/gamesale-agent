@@ -96,7 +96,7 @@ const mapDispatchToProps = dispatch => {
     },
     fetchPost: postUrl => {
       dispatch(fetchPost(postUrl));
-    }
+    },
   };
 };
 

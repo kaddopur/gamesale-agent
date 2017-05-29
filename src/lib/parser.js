@@ -1,4 +1,4 @@
-export const pttParser = (html) => {
+export const pttParser = html => {
   const cheerio = require('cheerio');
   const $ = cheerio.load(html);
   const PTT_HOST = 'https://www.ptt.cc';
@@ -21,4 +21,4 @@ export const pttParser = (html) => {
     .get();
 
   return posts;
-}
+};

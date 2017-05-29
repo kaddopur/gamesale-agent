@@ -1,13 +1,16 @@
 import {ajax} from 'rxjs/observable/dom/ajax';
 import 'rxjs/add/operator/mergeMap';
 import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/debounceTime';
 import {pttParser} from '../lib/parser';
 import _uniqBy from 'lodash/uniqBy';
 import _orderBy from 'lodash/orderBy';
 
+const FETCH_INTERVEL_MS = 10000;
+
 // Actions
 const FETCH = 'gamesale-agent/posts/FETCH';
-const FETCH_SUCCESS = 'gamesale-agent/posts/FETCH_SUCCESS';
+export const FETCH_SUCCESS = 'gamesale-agent/posts/FETCH_SUCCESS';
 
 // Reducer
 export default function reducer(state = [], action = {}) {
@@ -40,7 +43,7 @@ export const fetchSuccess = ({posts, previousPage}) => ({
 
 // Epics
 export const fetchPostEpic = action$ =>
-  action$.ofType(FETCH).mergeMap(action =>
+  action$.ofType(FETCH).debounceTime(FETCH_INTERVEL_MS).mergeMap(action =>
     ajax({
       url: action.payload.postUrl,
       responseType: 'text',

@@ -5,6 +5,7 @@ const POST_AMOUT_PER_QUEST = 5;
 const questsSelector = state => state.quests;
 const postsSelector = state => state.posts;
 export const uiSelector = state => state.ui;
+export const postLengthSelector = createSelector(postsSelector, posts => posts.length);
 
 const buyQuestsSelector = createSelector(questsSelector, quests =>
   quests.filter(quest => quest.type === 'buy')

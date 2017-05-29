@@ -4,17 +4,25 @@ import {Tabs, message} from 'antd';
 import QuestTable from './components/QuestTable';
 import PostTable from './components/PostTable';
 import ActionButton from './components/ActionButton';
-import {displayBuyQuestsSelector, displaySellQuestsSelector, uiSelector} from './selectors';
+import {
+  displayBuyQuestsSelector,
+  displaySellQuestsSelector,
+  uiSelector,
+  postLengthSelector,
+} from './selectors';
 import {readQuest, deleteQuest, createQuest} from './modules/quests';
 import {fetchPost} from './modules/posts';
 import {changeTab, toggleRow} from './modules/ui';
 import './App.css';
 
 const {TabPane} = Tabs;
+const MAX_POSTS = 200;
 
 class App extends Component {
-  componentDidMount() {
-    this.props.fetchPost();
+  componentWillReceiveProps({ui, postLength, fetchPost}) {
+    if (postLength < MAX_POSTS) {
+      fetchPost(ui.previousPage);
+    }
   }
 
   render() {
@@ -72,6 +80,7 @@ const mapStateToProps = state => {
     buyQuests: displayBuyQuestsSelector(state),
     sellQuests: displaySellQuestsSelector(state),
     ui: uiSelector(state),
+    postLength: postLengthSelector(state),
   };
 };
 

@@ -1,3 +1,5 @@
+import {FETCH_SUCCESS} from './posts';
+
 // Actions
 const CHANGE_TAB = 'gamesale-agent/ui/CHANGE_TAB';
 const TOGGLE_ROW = 'gamesale-agent/ui/TOGGLE_ROW';
@@ -26,6 +28,10 @@ export default function reducer(state = defaultState, action = {}) {
           ...state.expandedRows.slice(0, index),
           ...state.expandedRows.slice(index + 1),
         ],
+      });
+    case FETCH_SUCCESS:
+      return Object.assign({}, state, {
+        previousPage: action.payload.previousPage,
       });
     default:
       return state;

@@ -44,30 +44,24 @@ export default function reducer(state = mockQuests, action = {}) {
 }
 
 // Action Creators
-export function readQuest(questKey, postKey) {
-  return {
-    type: READ,
-    payload: {
-      questKey,
-      postKey,
-    },
-  };
-}
+export const readQuest = (questKey, postKey) => ({
+  type: READ,
+  payload: {
+    questKey,
+    postKey,
+  },
+});
 
-export function deleteQuest(questKey) {
-  return {
-    type: DELETE,
-    payload: {
-      questKey,
-    },
-  };
-}
+export const deleteQuest = questKey => ({
+  type: DELETE,
+  payload: {
+    questKey,
+  },
+});
 
-export function createQuest(quest) {
-  return {
-    type: CREATE,
-    payload: {
-      quest,
-    },
-  };
-}
+export const createQuest = quest => ({
+  type: CREATE,
+  payload: {
+    quest,
+  },
+});

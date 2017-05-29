@@ -1,4 +1,9 @@
+import 'rxjs/add/operator/mapTo';
+import 'rxjs/add/operator/delay';
+
 // Actions
+const FETCH = 'gamesale-agent/posts/FETCH';
+const FETCH_SUCCESS = 'gamesale-agent/posts/FETCH_SUCCESS';
 
 // Reducer
 const mockPosts = [
@@ -166,7 +171,7 @@ const mockPosts = [
   .sort()
   .reverse();
 
-export default function(state = mockPosts, action = {}) {
+export default function reducer(state = mockPosts, action = {}) {
   switch (action.type) {
     default:
       return state;
@@ -174,3 +179,13 @@ export default function(state = mockPosts, action = {}) {
 }
 
 // Action Creators
+export const fetchPost = postUrl => ({
+  type: FETCH,
+  payload: {
+    postUrl,
+  },
+});
+
+// Epics
+export const fetchPostEpic = action$ =>
+  action$.ofType('gamesale-agent/ui/CHANGE_TAB').delay(1000).mapTo({type: FETCH_SUCCESS});

@@ -1,6 +1,6 @@
-import React, {Component} from 'react';
-import {connect} from 'react-redux';
-import {Tabs, message} from 'antd';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { Tabs, message } from 'antd';
 import QuestTable from './components/QuestTable';
 import PostTable from './components/PostTable';
 import ActionButton from './components/ActionButton';
@@ -11,15 +11,15 @@ import {
   postLengthSelector,
   uiSelector,
 } from './selectors';
-import {readQuest, deleteQuest, createQuest} from './modules/quests';
-import {fetchPost} from './modules/posts';
-import {changeTab, toggleRow} from './modules/ui';
+import { readQuest, deleteQuest, createQuest } from './modules/quests';
+import { fetchPost } from './modules/posts';
+import { changeTab, toggleRow } from './modules/ui';
 import './App.css';
 
-const {TabPane} = Tabs;
+const { TabPane } = Tabs;
 
 class App extends Component {
-  componentWillReceiveProps({config, ui, postLength, fetchPost}) {
+  componentWillReceiveProps({ config, ui, postLength, fetchPost }) {
     if (postLength < config.MAX_POSTS) {
       fetchPost(ui.previousPage);
     }
@@ -43,18 +43,28 @@ class App extends Component {
           activeKey={ui.activeTabKey}
           onTabClick={onTabClick}
           animated={false}
-          tabBarExtraContent={<ActionButton type={ui.activeTabKey} onQuestCreate={onQuestCreate} />}
+          tabBarExtraContent={
+            <ActionButton
+              type={ui.activeTabKey}
+              onQuestCreate={onQuestCreate}
+            />
+          }
           tabBarStyle={{
             marginBottom: 0,
-          }}>
+          }}
+        >
           <TabPane tab="買遊戲" key="buy">
             <QuestTable
               dataSource={buyQuests}
               expandedRowKeys={ui.expandedRows}
               onExpand={onExpand}
               onQuestDelete={onQuestDelete}
-              expandedRowRender={({key, posts}) => (
-                <PostTable dataSource={posts} postKey={key} onPostClick={onPostClick} />
+              expandedRowRender={({ key, posts }) => (
+                <PostTable
+                  dataSource={posts}
+                  postKey={key}
+                  onPostClick={onPostClick}
+                />
               )}
             />
           </TabPane>
@@ -64,8 +74,12 @@ class App extends Component {
               expandedRowKeys={ui.expandedRows}
               onExpand={onExpand}
               onQuestDelete={onQuestDelete}
-              expandedRowRender={({key, posts}) => (
-                <PostTable dataSource={posts} postKey={key} onPostClick={onPostClick} />
+              expandedRowRender={({ key, posts }) => (
+                <PostTable
+                  dataSource={posts}
+                  postKey={key}
+                  onPostClick={onPostClick}
+                />
               )}
             />
           </TabPane>
@@ -93,7 +107,7 @@ const mapDispatchToProps = dispatch => {
     onTabClick: activeKey => {
       dispatch(changeTab(activeKey));
     },
-    onExpand: (expanded, {key}) => {
+    onExpand: (expanded, { key }) => {
       dispatch(toggleRow(expanded, key));
     },
     onQuestDelete: key => {

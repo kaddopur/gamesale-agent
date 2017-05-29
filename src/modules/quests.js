@@ -25,7 +25,9 @@ export default function reducer(state = mockQuests, action = {}) {
   let questIndex;
   switch (action.type) {
     case READ:
-      questIndex = state.findIndex(quest => quest.key === action.payload.questKey);
+      questIndex = state.findIndex(
+        quest => quest.key === action.payload.questKey,
+      );
       return [
         ...state.slice(0, questIndex),
         Object.assign({}, state[questIndex], {
@@ -34,7 +36,9 @@ export default function reducer(state = mockQuests, action = {}) {
         ...state.slice(questIndex + 1),
       ];
     case DELETE:
-      questIndex = state.findIndex(quest => quest.key === action.payload.questKey);
+      questIndex = state.findIndex(
+        quest => quest.key === action.payload.questKey,
+      );
       return [...state.slice(0, questIndex), ...state.slice(questIndex + 1)];
     case CREATE:
       return [...state, action.payload.quest];

@@ -1,7 +1,7 @@
 import React from 'react';
-import {Tag} from 'antd';
+import { Tag } from 'antd';
 
-const PlatformTag = ({platform}) => {
+const PlatformTag = ({ platform }) => {
   switch (platform) {
     case 'NS':
       return <Tag color="#ED3A3E">{platform}</Tag>;

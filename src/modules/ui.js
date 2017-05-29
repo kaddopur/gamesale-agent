@@ -1,4 +1,4 @@
-import {FETCH_SUCCESS} from './posts';
+import { FETCH_SUCCESS } from './posts';
 
 // Actions
 const CHANGE_TAB = 'gamesale-agent/ui/CHANGE_TAB';

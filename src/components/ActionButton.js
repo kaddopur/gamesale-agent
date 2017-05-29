@@ -1,5 +1,5 @@
 import React from 'react';
-import {Button, Modal, Input, Select} from 'antd';
+import { Button, Modal, Input, Select } from 'antd';
 import uuid from 'uuid-v4';
 
 const InputGroup = Input.Group;
@@ -14,7 +14,7 @@ class ActionButton extends React.Component {
     };
   }
 
-  componentWillReceiveProps({type}) {
+  componentWillReceiveProps({ type }) {
     if (type !== this.props.type) {
       this.setState({
         quest: Object.assign({}, this.state.quest, {
@@ -35,17 +35,18 @@ class ActionButton extends React.Component {
   }
 
   render() {
-    const {type, onQuestCreate} = this.props;
-    const {visible, quest} = this.state;
-    const {platform, query} = quest;
+    const { type, onQuestCreate } = this.props;
+    const { visible, quest } = this.state;
+    const { platform, query } = quest;
     const wording = `我要${type === 'buy' ? '買' : '賣'}遊戲`;
     return (
       <div>
         <Button
           type="primary"
           size="small"
-          style={{marginTop: 7, marginRight: 10}}
-          onClick={() => this.setState({visible: true})}>
+          style={{ marginTop: 7, marginRight: 10 }}
+          onClick={() => this.setState({ visible: true })}
+        >
           {wording}
         </Button>
         <Modal
@@ -54,15 +55,17 @@ class ActionButton extends React.Component {
           wrapClassName="vertical-center-modal"
           onOk={() => {
             onQuestCreate(this.state.quest);
-            this.setState({visible: false, quest: this.generateQuest(type)});
+            this.setState({ visible: false, quest: this.generateQuest(type) });
           }}
-          onCancel={() => this.setState({visible: false, quest: this.generateQuest(type)})}
+          onCancel={() =>
+            this.setState({ visible: false, quest: this.generateQuest(type) })}
           okText="新增"
-          cancelText="取消">
+          cancelText="取消"
+        >
           <InputGroup compact>
             <Select
               showSearch
-              style={{width: 120}}
+              style={{ width: 120 }}
               placeholder="選擇平台"
               value={platform}
               onSelect={value =>
@@ -73,7 +76,9 @@ class ActionButton extends React.Component {
                 })}
               optionFilterProp="children"
               filterOption={(input, option) =>
-                option.props.value.toLowerCase().indexOf(input.toLowerCase()) >= 0}>
+                option.props.value.toLowerCase().indexOf(input.toLowerCase()) >=
+                0}
+            >
               <Option value="NS">NS</Option>
               <Option value="PS4">PS4</Option>
               <Option value="XONE">XONE</Option>
@@ -84,7 +89,7 @@ class ActionButton extends React.Component {
               <Option value="">不拘</Option>
             </Select>
             <Input
-              style={{width: '50%'}}
+              style={{ width: '50%' }}
               placeholder="目標字串"
               value={query}
               onChange={e =>

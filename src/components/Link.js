@@ -1,6 +1,6 @@
 /* global chrome */
 
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 
 class Link extends Component {
   constructor(props) {
@@ -9,7 +9,7 @@ class Link extends Component {
   }
 
   handleClick(e) {
-    const {url, handleClick} = this.props;
+    const { url, handleClick } = this.props;
 
     if (chrome && chrome.tabs) {
       e.preventDefault();
@@ -25,7 +25,7 @@ class Link extends Component {
   }
 
   render() {
-    const {url, children, style, className} = this.props;
+    const { url, children, style, className } = this.props;
     return (
       <a
         href={url}
@@ -33,7 +33,8 @@ class Link extends Component {
         style={style}
         target="_blank"
         rel="noopener noreferrer"
-        onClick={this.handleClick}>
+        onClick={this.handleClick}
+      >
         {children}
       </a>
     );

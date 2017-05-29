@@ -13,6 +13,7 @@
     "redux-observable": "^0.14.1",
     "redux-persist": "^4.8.0",
     "reselect": "^3.0.1",
+    "rxjs": "^5.4.0",
     "uuid-v4": "^0.1.0"
   },
   "devDependencies": {

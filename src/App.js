@@ -5,8 +5,8 @@ import QuestTable from './components/QuestTable';
 import PostTable from './components/PostTable';
 import ActionButton from './components/ActionButton';
 import {displayBuyQuestsSelector, displaySellQuestsSelector, uiSelector} from './selectors';
-import {readQuest, deleteQuest, createQuest} from './ducks/quests';
-import {changeTab, toggleRow} from './ducks/ui';
+import {readQuest, deleteQuest, createQuest} from './modules/quests';
+import {changeTab, toggleRow} from './modules/ui';
 import './App.css';
 
 const {TabPane} = Tabs;

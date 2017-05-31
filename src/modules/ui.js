@@ -8,6 +8,7 @@ const TOGGLE_ROW = 'gamesale-agent/ui/TOGGLE_ROW';
 const defaultState = {
   activeTabKey: 'buy',
   expandedRows: [],
+  previousPage: '',
 };
 
 export default function reducer(state = defaultState, action = {}) {

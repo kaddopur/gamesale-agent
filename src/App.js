@@ -19,10 +19,8 @@ import './App.css';
 const { TabPane } = Tabs;
 
 class App extends Component {
-  componentWillReceiveProps({ config, ui, postLength, fetchPost }) {
-    if (postLength < config.MAX_POSTS) {
-      fetchPost(ui.previousPage);
-    }
+  componentDidMount() {
+    this.props.fetchPost();
   }
 
   render() {

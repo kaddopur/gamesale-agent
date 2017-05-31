@@ -55,7 +55,12 @@ module.exports = {
       // initialization, it doesn't blow up the WebpackDevServer client, and
       // changing JS code would still trigger a refresh.
     ],
-    background: paths.appBackgroundJs,
+    background: [
+      require.resolve('react-dev-utils/webpackHotDevClient'),
+      require.resolve('./polyfills'),
+      require.resolve('react-error-overlay'),
+      paths.appBackgroundJs,
+    ],
   },
   output: {
     // Next line is not used in dev but WebpackDevServer crashes without it:
@@ -89,7 +94,6 @@ module.exports = {
     // https://github.com/facebookincubator/create-react-app/issues/290
     extensions: ['.js', '.json', '.jsx'],
     alias: {
-
       // Support React Native Web
       // https://www.smashingmagazine.com/2016/08/a-glimpse-into-the-future-with-react-native-for-web/
       'react-native': 'react-native-web',
@@ -119,7 +123,6 @@ module.exports = {
           {
             options: {
               formatter: eslintFormatter,
-
             },
             loader: require.resolve('eslint-loader'),
           },
@@ -168,7 +171,6 @@ module.exports = {
         include: paths.appSrc,
         loader: require.resolve('babel-loader'),
         options: {
-
           // This is a feature of `babel-loader` for webpack (not Babel itself).
           // It enables caching results in ./node_modules/.cache/babel-loader/
           // directory for faster rebuilds.
@@ -225,6 +227,13 @@ module.exports = {
     new HtmlWebpackPlugin({
       inject: true,
       template: paths.appHtml,
+      chunks: ['main'],
+    }),
+    new HtmlWebpackPlugin({
+      inject: true,
+      filename: 'background.html',
+      template: paths.appBackgroundHtml,
+      chunks: ['background'],
     }),
     // Makes some environment variables available to the JS code, for example:
     // if (process.env.NODE_ENV === 'development') { ... }. See `./env.js`.

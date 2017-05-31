@@ -4,24 +4,7 @@ const DELETE = 'gamesale-agent/quests/DELETE';
 const CREATE = 'gamesale-agent/quests/CREATE';
 
 // Reducer
-const mockQuests = [
-  {
-    key: '1',
-    query: '快打旋風2',
-    type: 'sell',
-    platform: 'NS',
-    readPosts: [],
-  },
-  {
-    key: '2',
-    query: '地平線',
-    type: 'buy',
-    platform: 'PS4',
-    readPosts: [],
-  },
-];
-
-export default function reducer(state = mockQuests, action = {}) {
+export default function reducer(state = [], action = {}) {
   let questIndex;
   switch (action.type) {
     case READ:

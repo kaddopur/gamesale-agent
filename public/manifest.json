@@ -1,6 +1,6 @@
 {
   "manifest_version": 2,
-  "name": "game-agent",
+  "name": "gamesale-agent",
   "description": "PTT gamesale agent",
   "version": "0.1.0",
   "browser_action": {

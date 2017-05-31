@@ -1,5 +1,5 @@
 {
-  "name": "game-agent",
+  "name": "gamesale-agent",
   "version": "0.3.0",
   "private": true,
   "dependencies": {

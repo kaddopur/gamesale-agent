@@ -4,13 +4,14 @@ import { persistStore, autoRehydrate } from 'redux-persist';
 import localForage from 'localforage';
 import { rootReducer, rootEpic } from './modules/root';
 
-export default function configureStore() {
+export default function configureStore(state) {
   const composeEnhancers =
     window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
   const epicMiddleware = createEpicMiddleware(rootEpic);
 
   const store = createStore(
     rootReducer,
+    state,
     composeEnhancers(applyMiddleware(epicMiddleware), autoRehydrate()),
   );
   persistStore(store, { storage: localForage });

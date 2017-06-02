@@ -18,10 +18,11 @@ export const syncBackgroundEpic = (action$, store) => {
   }
   const port = chrome.runtime.connect({ name: CHANNEL });
   return action$.ofType(SYNC_BACKGROUND).debounceTime(100).mergeMap(action => {
+    const { quests, config, ui } = store.getState();
     port.postMessage({
       type: SYNC_BACKGROUND,
       payload: {
-        state: store.getState(),
+        state: { quests, config, ui },
       },
     });
     return Observable.empty();

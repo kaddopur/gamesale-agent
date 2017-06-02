@@ -13,10 +13,14 @@ const { store, persistor } = configureStore();
 const { config: { BACKGROUND_CHECK_INTERVEL_MS } } = store.getState();
 let storeSubscription;
 let rxSubscription;
+let connection;
 
 storeSubscription = store.subscribe(() => {
+  const state = store.getState();
+  const { posts } = state;
+
   updateBadge({
-    unreadCount: unreadPostCountSelector(store.getState()),
+    unreadCount: unreadPostCountSelector(state),
   });
 });
 
@@ -26,6 +30,8 @@ if (chrome && chrome.runtime && chrome.runtime.onConnect) {
     if (port.name !== CHANNEL) {
       return;
     }
+    connection = port;
+
     port.onMessage.addListener(msg => {
       switch (msg.type) {
         case SYNC_BACKGROUND:
@@ -33,6 +39,10 @@ if (chrome && chrome.runtime && chrome.runtime.onConnect) {
         default:
           return;
       }
+    });
+
+    port.onDisconnect.addListener(port => {
+      connection = undefined;
     });
   });
 }

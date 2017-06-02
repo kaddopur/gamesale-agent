@@ -60,3 +60,15 @@ export const displaySellQuestsSelector = createSelector(
     return quests.map(formatQuest(posts, config.POST_PER_QUEST));
   },
 );
+
+export const unreadPostCountSelector = createSelector(
+  displayBuyQuestsSelector,
+  displaySellQuestsSelector,
+  (buyQuests, sellQuests) => {
+    return buyQuests.concat(sellQuests).reduce((acc, { posts, readPosts }) => {
+      return (
+        acc + posts.filter(({ key }) => readPosts.indexOf(key) === -1).length
+      );
+    }, 0);
+  },
+);

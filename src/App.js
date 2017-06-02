@@ -10,10 +10,12 @@ import {
   displaySellQuestsSelector,
   postLengthSelector,
   uiSelector,
+  unreadPostCountSelector,
 } from './selectors';
 import { readQuest, deleteQuest, createQuest } from './modules/quests';
 import { fetchPost } from './modules/posts';
 import { changeTab, toggleRow } from './modules/ui';
+import { updateBadge } from './lib/chrome';
 import './App.css';
 
 const { TabPane } = Tabs;
@@ -21,6 +23,14 @@ const { TabPane } = Tabs;
 class App extends Component {
   componentDidMount() {
     this.props.fetchPost();
+  }
+
+  componentWillReceiveProps({ unreadCount }) {
+    if (unreadCount !== this.props.unreadCount) {
+      updateBadge({
+        unreadCount,
+      });
+    }
   }
 
   render() {
@@ -94,6 +104,7 @@ const mapStateToProps = state => {
     postLength: postLengthSelector(state),
     sellQuests: displaySellQuestsSelector(state),
     ui: uiSelector(state),
+    unreadCount: unreadPostCountSelector(state),
   };
 };
 

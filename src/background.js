@@ -1,8 +1,6 @@
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/interval';
 import 'rxjs/add/operator/startWith';
-import 'rxjs/add/operator/takeWhile';
-import 'rxjs/add/operator/throttleTime';
 import configureStore from './configureStore';
 import { fetchPost } from './modules/posts';
 import { unreadPostCountSelector } from './selectors';
@@ -23,6 +21,12 @@ storeSubscription = store.subscribe(() => {
     unreadCount: unreadPostCountSelector(state),
   });
 });
+
+rxSubscription = Observable.interval(BACKGROUND_CHECK_INTERVEL_MS)
+  .startWith(0)
+  .subscribe(() => {
+    store.dispatch(fetchPost());
+  });
 
 // sync from popup
 if (chrome && chrome.runtime && chrome.runtime.onConnect) {

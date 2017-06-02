@@ -25,7 +25,6 @@ class App extends Component {
       return;
     }
 
-    console.log('should send state to background', Math.random());
     this.props.syncBackground();
   }
 

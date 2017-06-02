@@ -13,24 +13,20 @@ import {
   unreadPostCountSelector,
 } from './selectors';
 import { readQuest, deleteQuest, createQuest } from './modules/quests';
-import { fetchPost } from './modules/posts';
 import { changeTab, toggleRow } from './modules/ui';
-import { updateBadge } from './lib/chrome';
+import { syncBackground } from './modules/chrome';
 import './App.css';
 
 const { TabPane } = Tabs;
 
 class App extends Component {
-  componentDidMount() {
-    this.props.fetchPost();
-  }
-
-  componentWillReceiveProps({ unreadCount }) {
-    if (unreadCount !== this.props.unreadCount) {
-      updateBadge({
-        unreadCount,
-      });
+  componentWillReceiveProps({ posts }) {
+    if (posts !== this.props.posts) {
+      return;
     }
+
+    console.log('should send state to background', Math.random());
+    this.props.syncBackground();
   }
 
   render() {
@@ -128,8 +124,8 @@ const mapDispatchToProps = dispatch => {
       dispatch(toggleRow(true, quest.key));
       message.success('已成功新增任務');
     },
-    fetchPost: postUrl => {
-      dispatch(fetchPost(postUrl));
+    syncBackground: () => {
+      dispatch(syncBackground());
     },
   };
 };

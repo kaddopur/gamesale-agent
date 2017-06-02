@@ -5,8 +5,10 @@ import configureStore from './configureStore';
 import App from './App';
 import './index.css';
 
+const store = configureStore().store;
+
 ReactDOM.render(
-  <Provider store={configureStore()}>
+  <Provider store={store}>
     <App />
   </Provider>,
   document.getElementById('root'),

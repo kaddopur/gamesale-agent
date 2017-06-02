@@ -6,37 +6,33 @@ import 'rxjs/add/operator/throttleTime';
 import configureStore from './configureStore';
 import { fetchPost } from './modules/posts';
 import { unreadPostCountSelector } from './selectors';
-import { updateBadge } from './lib/chrome';
+import { SYNC_BACKGROUND, CHANNEL } from './modules/chrome';
+import { updateBadge } from './lib/bgUtils';
 
-let store;
+const { store, persistor } = configureStore();
+const { config: { BACKGROUND_CHECK_INTERVEL_MS } } = store.getState();
 let storeSubscription;
 let rxSubscription;
 
-function _startBackgroundFetch(initialState) {
-  store = configureStore(initialState);
-  const { config: { BACKGROUND_CHECK_INTERVEL_MS } } = store.getState();
+storeSubscription = store.subscribe(() => {
+  updateBadge({
+    unreadCount: unreadPostCountSelector(store.getState()),
+  });
+});
 
-  storeSubscription = store.subscribe(() => {
-    updateBadge({
-      unreadCount: unreadPostCountSelector(store.getState()),
+// sync from popup
+if (chrome && chrome.runtime && chrome.runtime.onConnect) {
+  chrome.runtime.onConnect.addListener(port => {
+    if (port.name !== CHANNEL) {
+      return;
+    }
+    port.onMessage.addListener(msg => {
+      switch (msg.type) {
+        case SYNC_BACKGROUND:
+          persistor.rehydrate(msg.payload.state);
+        default:
+          return;
+      }
     });
   });
-
-  rxSubscription = Observable.interval(
-    BACKGROUND_CHECK_INTERVEL_MS,
-  ).subscribe(val => {
-    store.dispatch(fetchPost());
-  });
 }
-
-function _stopBackgroundFetch() {
-  storeSubscription && storeSubscription();
-  rxSubscription && rxSubscription.unsubscribe();
-}
-
-function restartBackgroundFetch(initialState) {
-  _stopBackgroundFetch();
-  _startBackgroundFetch(initialState);
-}
-
-restartBackgroundFetch();

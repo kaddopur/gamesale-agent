@@ -14,6 +14,10 @@ export default function configureStore(state) {
     state,
     composeEnhancers(applyMiddleware(epicMiddleware), autoRehydrate()),
   );
-  persistStore(store, { storage: localForage });
-  return store;
+  const persistor = persistStore(store, { storage: localForage });
+
+  return {
+    store,
+    persistor,
+  };
 }

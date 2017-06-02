@@ -4,8 +4,13 @@ import config from './config';
 import quests from './quests';
 import posts, { fetchPostEpic, fetchPreviousPostEpic } from './posts';
 import ui from './ui';
+import { syncBackgroundEpic } from './chrome';
 
-export const rootEpic = combineEpics(fetchPostEpic, fetchPreviousPostEpic);
+export const rootEpic = combineEpics(
+  fetchPostEpic,
+  fetchPreviousPostEpic,
+  syncBackgroundEpic,
+);
 
 export const rootReducer = combineReducers({
   config,

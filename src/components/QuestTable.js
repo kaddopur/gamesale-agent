@@ -10,7 +10,7 @@ const QuestTable = ({
   onExpand,
   expandedRowRender,
   onQuestDelete,
-}) => (
+}) =>
   <Table
     className="components-table-demo-nested"
     dataSource={dataSource}
@@ -36,18 +36,17 @@ const QuestTable = ({
       title="目標字串"
       dataIndex="query"
       key="query"
-      render={(text, { read }) => (
+      render={(text, { read }) =>
         <Badge dot={!read}>
           <span style={{ paddingRight: 4 }}>{text || '( 空字串 )'}</span>
-        </Badge>
-      )}
+        </Badge>}
     />
     <Column
       title="動作"
       dataIndex="action"
       key="action"
       width="50px"
-      render={(text, { key }) => (
+      render={(text, { key }) =>
         <Popconfirm
           title="你確定要刪除這個任務嗎？"
           placement="left"
@@ -56,10 +55,8 @@ const QuestTable = ({
           cancelText="取消"
         >
           <a href="#">刪除</a>
-        </Popconfirm>
-      )}
+        </Popconfirm>}
     />
-  </Table>
-);
+  </Table>;
 
 export default QuestTable;

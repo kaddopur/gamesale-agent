@@ -4,7 +4,7 @@ import Link from './Link';
 
 const { Column } = Table;
 
-const PostTable = ({ postKey, onPostClick, dataSource }) => (
+const PostTable = ({ postKey, onPostClick, dataSource }) =>
   <Table
     dataSource={dataSource}
     showHeader={false}
@@ -20,7 +20,7 @@ const PostTable = ({ postKey, onPostClick, dataSource }) => (
       title="遊戲"
       dataIndex="title"
       key="title"
-      render={(text, { link, read }) => (
+      render={(text, { link, read }) =>
         <Badge dot={!read}>
           <Link
             url={link}
@@ -29,10 +29,8 @@ const PostTable = ({ postKey, onPostClick, dataSource }) => (
           >
             {text}
           </Link>
-        </Badge>
-      )}
+        </Badge>}
     />
-  </Table>
-);
+  </Table>;
 
 export default PostTable;

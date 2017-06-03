@@ -73,7 +73,8 @@
     "format": "prettier --single-quote --trailing-comma all --write \"src/**/*.js\"",
     "precommit": "lint-staged",
     "version": "version-everything && git add -u",
-    "zip": "node scripts/zip.js"
+    "zip": "node scripts/zip.js",
+    "upload": "node scripts/upload.js"
   },
   "lint-staged": {
     "src/**/*.js": [

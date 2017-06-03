@@ -23,5 +23,3 @@ window.matchMedia =
       removeListener: function() {},
     };
   };
-
-window.chrome = {};

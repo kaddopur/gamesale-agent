@@ -70,7 +70,8 @@
     "test": "node scripts/test.js --env=jsdom",
     "lint": "eslint src/ --fix",
     "format": "prettier --single-quote --trailing-comma all --write \"src/**/*.js\"",
-    "precommit": "lint-staged"
+    "precommit": "lint-staged",
+    "version": "version-everything && git add -u"
   },
   "lint-staged": {
     "src/**/*.js": [
@@ -108,5 +109,8 @@
     "presets": [
       "react-app"
     ]
-  }
+  },
+  "version_files": [
+    "public/manifest.json"
+  ]
 }

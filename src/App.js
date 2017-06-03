@@ -10,19 +10,22 @@ import {
   displaySellQuestsSelector,
   postLengthSelector,
   uiSelector,
+  unreadPostCountSelector,
 } from './selectors';
 import { readQuest, deleteQuest, createQuest } from './modules/quests';
-import { fetchPost } from './modules/posts';
 import { changeTab, toggleRow } from './modules/ui';
+import { syncBackground } from './modules/chrome';
 import './App.css';
 
 const { TabPane } = Tabs;
 
 class App extends Component {
-  componentWillReceiveProps({ config, ui, postLength, fetchPost }) {
-    if (postLength < config.MAX_POSTS) {
-      fetchPost(ui.previousPage);
+  componentWillReceiveProps({ posts }) {
+    if (posts !== this.props.posts) {
+      return;
     }
+
+    this.props.syncBackground();
   }
 
   render() {
@@ -96,6 +99,7 @@ const mapStateToProps = state => {
     postLength: postLengthSelector(state),
     sellQuests: displaySellQuestsSelector(state),
     ui: uiSelector(state),
+    unreadCount: unreadPostCountSelector(state),
   };
 };
 
@@ -119,8 +123,8 @@ const mapDispatchToProps = dispatch => {
       dispatch(toggleRow(true, quest.key));
       message.success('已成功新增任務');
     },
-    fetchPost: postUrl => {
-      dispatch(fetchPost(postUrl));
+    syncBackground: () => {
+      dispatch(syncBackground());
     },
   };
 };

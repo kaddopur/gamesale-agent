@@ -1,10 +1,22 @@
 {
   "manifest_version": 2,
-  "name": "game-agent",
+  "name": "gamesale-agent",
   "description": "PTT gamesale agent",
   "version": "0.1.0",
   "browser_action": {
     "default_popup": "index.html"
   },
-  "content_security_policy": "default-src 'self'; font-src 'self' https://at.alicdn.com"
+  "content_security_policy": "default-src 'self'; font-src 'self' https://at.alicdn.com; connect-src 'self' https://www.ptt.cc/",
+  "permissions": [
+    "notifications",
+    "https://www.ptt.cc/"
+  ],
+  "background": {
+    "scripts": ["static/js/background.js"]
+  },
+  "icons": {
+    "16": "images/16.png",
+    "48": "images/48.png",
+    "128": "images/128.png"
+  }
 }

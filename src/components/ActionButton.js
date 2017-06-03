@@ -52,7 +52,7 @@ class ActionButton extends React.Component {
         <Modal
           title="新增任務"
           visible={visible}
-          wrapClassName="vertical-center-modal"
+          style={{ top: 25 }}
           onOk={() => {
             onQuestCreate(this.state.quest);
             this.setState({ visible: false, quest: this.generateQuest(type) });

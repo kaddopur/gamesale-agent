@@ -16,6 +16,7 @@ const QuestTable = ({
     dataSource={dataSource}
     pagination={false}
     size="middle"
+    scroll={{ y: 400 }}
     showHeader={false}
     expandedRowKeys={expandedRowKeys}
     onExpand={onExpand}

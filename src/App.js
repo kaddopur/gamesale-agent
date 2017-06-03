@@ -19,7 +19,7 @@ import './App.css';
 
 const { TabPane } = Tabs;
 
-class App extends Component {
+export class App extends Component {
   componentWillReceiveProps({ posts }) {
     if (posts !== this.props.posts) {
       return;
@@ -32,7 +32,7 @@ class App extends Component {
     const {
       buyQuests,
       sellQuests,
-      ui,
+      ui: { activeTabKey, expandedRows } = {},
       onPostClick,
       onTabClick,
       onExpand,
@@ -43,14 +43,11 @@ class App extends Component {
     return (
       <div className="App">
         <Tabs
-          activeKey={ui.activeTabKey}
+          activeKey={activeTabKey}
           onTabClick={onTabClick}
           animated={false}
           tabBarExtraContent={
-            <ActionButton
-              type={ui.activeTabKey}
-              onQuestCreate={onQuestCreate}
-            />
+            <ActionButton type={activeTabKey} onQuestCreate={onQuestCreate} />
           }
           tabBarStyle={{
             marginBottom: 0,
@@ -59,31 +56,29 @@ class App extends Component {
           <TabPane tab="買遊戲" key="buy">
             <QuestTable
               dataSource={buyQuests}
-              expandedRowKeys={ui.expandedRows}
+              expandedRowKeys={expandedRows}
               onExpand={onExpand}
               onQuestDelete={onQuestDelete}
-              expandedRowRender={({ key, posts }) => (
+              expandedRowRender={({ key, posts }) =>
                 <PostTable
                   dataSource={posts}
                   postKey={key}
                   onPostClick={onPostClick}
-                />
-              )}
+                />}
             />
           </TabPane>
           <TabPane tab="賣遊戲" key="sell">
             <QuestTable
               dataSource={sellQuests}
-              expandedRowKeys={ui.expandedRows}
+              expandedRowKeys={expandedRows}
               onExpand={onExpand}
               onQuestDelete={onQuestDelete}
-              expandedRowRender={({ key, posts }) => (
+              expandedRowRender={({ key, posts }) =>
                 <PostTable
                   dataSource={posts}
                   postKey={key}
                   onPostClick={onPostClick}
-                />
-              )}
+                />}
             />
           </TabPane>
         </Tabs>
